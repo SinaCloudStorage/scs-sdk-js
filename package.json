@@ -1,7 +1,7 @@
 {
     "name": "scs-sdk",
     "description": "SCS SDK for JavaScript",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "author": {
       "name":"Sina Cloud Storage",
       "email":"",
@@ -49,10 +49,7 @@
       "url": "http://github.com/SinaCloudStorage/scs-sdk-js/raw/master/LICENSE.txt"
     }],
     "keywords": [
-      "api", "amazon","aws","ec2","simpledb","s3","sqs","ses","sns","route53","rds","elasticache","cloudfront","fps",
-      "cloudformation","cloudwatch","dynamodb","iam","swf","autoscaling","cloudsearch","elb",
-      "loadbalancing","emr","mapreduce","importexport","storagegateway","workflow","ebs","vpc","beanstalk",
-      "glacier","kinesis","cloudtrail"
+      "api", "sina", "aws", "scs", "s3", "rest", "sinacloud", "cloudmario"
     ],
     "scripts" : {
       "test" : "npm -s run-script lint && npm -s run-script unit && npm -s run-script buildertest && npm -s run-script browsertest && ([ -f configuration ] && npm -s run-script integration || true)",

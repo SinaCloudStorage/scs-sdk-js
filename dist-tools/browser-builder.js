@@ -6,7 +6,8 @@ var path = require('path');
 var CacheStrategy = require('./strategies/cache');
 var DefaultStrategy = require('./strategies/default');
 
-var defaultServices = 'cloudwatch,cognitoidentity,cognitosync,dynamodb,kinesis,s3,sqs,sns,sts';
+//var defaultServices = 'cloudwatch,cognitoidentity,cognitosync,dynamodb,kinesis,s3,sqs,sns,sts';
+var defaultServices = 's3';
 var sanitizeRegex = /[^a-zA-Z0-9,-]/;
 
 function Builder(options) {
@@ -107,7 +108,7 @@ Builder.prototype.addServices = function(services) {
   }.bind(this));
 
   if (!stsIncluded) {
-    this.serviceCode.push(this.buildService('sts'));
+    //this.serviceCode.push(this.buildService('sts'));
   }
 
   if (invalidModules.length > 0) {
