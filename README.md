@@ -5,7 +5,7 @@ scs-sdk-js
 
 ### Installation
 
-	npm install aws-sdk
+	npm install scs-sdk
 
 ### Usage
   
