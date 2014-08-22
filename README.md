@@ -145,6 +145,53 @@ scs-sdk-js
 	}).on('httpHeaders', function(statusCode, headers) {
 		console.log('statusCode: ' + statusCode + "\n", headers);
 	}).send();
+	
+##### 上传文件示例1：
+
+	var s3 = new SinaCloud.S3();
+	var file = require('fs').createReadStream('/path/to/file.jpg');
+	var params = {Bucket: 'myBucket', Key: 'myImageFile.jpg', Body: file};
+	s3.putObject(params).on('httpHeaders', function(statusCode, headers) { 
+		console.log(headers);
+	}).on('httpUploadProgress', function(progress) {
+		console.log(progress);
+	}).on('error', function(error) {
+		console.log(error);
+	}).on('success', function() {
+		console.log('success');
+	}).send();
+	
+##### 上传文件示例2：
+
+	var fileName = '/file/path/IMG_3218.JPG';
+	var remoteFilename = 'IMG_3218.JPG';
+	var s3 = new SinaCloud.S3();
+	var fileBuffer = require('fs').readFileSync(fileName);
+	
+	s3.putObject({
+		ACL: 'public-read',
+		Bucket: 'mybucket',
+		Key: remoteFilename,
+		Body: fileBuffer
+	}, function(error, response) {
+		if (error) {
+			console.log(error);
+		} else {
+			console.log('uploaded file[' + fileName + '] to [' + remoteFilename + ']');
+		}
+	});
+
+##### 上传文件示例3：
+
+	var myBucket = new SinaCloud.S3({params: {Bucket: 'myBucket'}});
+	var data = {Key: 'myKey', Body: 'Hello!'};
+	myBucket.putObject(data, function(err, data) {
+		if (err) {
+			console.log("Error uploading data: ", err);
+		} else {
+			console.log("Successfully uploaded data to myBucket/myKey");
+		}
+	});
 
 ##### 获取bucket的acl信息:
 	
@@ -157,5 +204,31 @@ scs-sdk-js
 			console.log(data);	// successful response
 		}
 	});
+
+##### 删除一个文件:
+
+	var s3 = new SinaCloud.S3();
+	var params = {Bucket: 'myBucket', Key: 'myImageFile.jpg'};
+	s3.deleteObject(params, function(err, data) {
+		if (err) {
+			console.log(err);	// an error occurred
+		} else {
+			console.log(data);	// successful response
+		}
+	});
 	
+##### 删除一个bucket:
+
+	var s3 = new SinaCloud.S3();
+	var params = {Bucket: 'myBucket'};
+	s3.deleteBucket(params, function(err, data) {
+		if (err) {
+			console.log(err);	// an error occurred
+		} else {
+			console.log(data);	// successful response
+		}
+	});
+	
+	
+
 
