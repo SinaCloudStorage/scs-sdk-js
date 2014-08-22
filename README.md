@@ -18,7 +18,9 @@ scs-sdk-js
 ##### 方法1:
 
 	var config = new SinaCloud.Config({
-		accessKeyId: '你的accessKey', secretAccessKey: '你的secretKey'
+		accessKeyId: '你的accessKey', 
+		secretAccessKey: '你的secretKey',
+		sslEnabled: false
 	});
   
   	//全局生效:
@@ -31,7 +33,8 @@ scs-sdk-js
 
 	{
 		"accessKeyId": "你的accessKey", 
-		"secretAccessKey": "你的secretKey"
+		"secretAccessKey": "你的secretKey",
+		"sslEnabled": true
 	}
 
 加载`config.json`:
@@ -42,7 +45,9 @@ scs-sdk-js
 ##### 方法3:
 
 	var config = new SinaCloud.Config({
-		accessKeyId: '你的accessKey', secretAccessKey: '你的secretKey'
+		accessKeyId: '你的accessKey', 
+		secretAccessKey: '你的secretKey',
+		sslEnabled: false
 	});
   
 	//实例化:
@@ -108,21 +113,49 @@ scs-sdk-js
 	
 	s3.listObjects(params, function(err, data) {
 	
-	if (err) 
-		console.log(err, err.stack); // an error occurred
-	else     
-		console.log(data);           // successful response
+		if (err) 
+			console.log(err, err.stack); // an error occurred
+		else     
+			console.log(data);           // successful response
 	});
+	
+##### 下载文件示例1:
 
+	var s3 = new SinaCloud.S3();
+	var params = {Bucket: 'myBucket', Key: 'myImageFile.jpg'};
+	var file = require('fs').createWriteStream('/path/to/file.jpg');
+	s3.getObject(params).createReadStream().pipe(file);
+
+##### 下载文件示例2:
+
+	var s3 = new SinaCloud.S3();
+	var params = {Bucket: 'myBucket', Key: 'myImageFile.jpg'};
+	var file = require('fs').createWriteStream('/path/to/file.jpg');
+
+	s3.getObject(params).on('httpData', function(chunk) {
+		file.write(chunk); 
+	}).on('httpDone', function() {
+		file.end();
+	}).on('httpDownloadProgress', function(progress) {
+		console.log(progress);
+	}).on('error', function(error) {
+		console.log(error);
+	}).on('success', function() {
+		console.log('success');
+	}).on('httpHeaders', function(statusCode, headers) {
+		console.log('statusCode: ' + statusCode + "\n", headers);
+	}).send();
 
 ##### 获取bucket的acl信息:
-
+	
+	var s3bucket = new SinaCloud.S3({params: {Bucket: 'myBucket'}});
+	
 	s3bucket.getBucketAcl(function(err, data) {
-
-		if (err) 
+		if (err) {
 			console.log(err);	// an error occurred
-		else	
+		} else {
 			console.log(data);	// successful response
+		}
 	});
 	
-	
+
