@@ -237,13 +237,5 @@ scs-sdk-js
 	var params = {Bucket: 'myBucket', Key: 'myKey', Expires: 60};
 	var url = s3.getSignedUrl('getObject', params);
 	console.log("The URL is", url);
-
-
-##### 获取一个带有签名的用于上传的url:
-
-	var s3 = new SinaCloud.S3();
 	
-	// This URL will expire in one minute (60 seconds)
-	var params = {Bucket: 'myBucket', Key: 'myKey', Expires: 60};
-	var url = s3.getSignedUrl('putObject', params);
-	console.log("The URL is", url);
+	
