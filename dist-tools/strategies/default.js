@@ -12,9 +12,8 @@ function DefaultStrategy(builder) {
   this.AWS = require(this.libPath + '/lib/aws');
   this.apis = require('scs-sdk-apis');
   this.license = [
-    '// AWS SDK for JavaScript v' + this.AWS.VERSION,
-    '// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.',
-    '// License at https://sdk.amazonaws.com/js/BUNDLE_LICENSE.txt'
+    '// SCS SDK for JavaScript v' + this.AWS.VERSION,
+    '// Copyright Sina Inc. All Rights Reserved.'
   ].join('\n') + '\n';
   this.setServiceClasses();
 
