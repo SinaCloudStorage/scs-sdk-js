@@ -43,7 +43,6 @@ SinaCloud.config = config;
 	"secretAccessKey": "你的secretKey",
 	"sslEnabled": true
 }
-	
 ```
 
 加载`config.json`:
