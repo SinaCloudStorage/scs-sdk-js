@@ -65,7 +65,7 @@ var config = new SinaCloud.Config({
 
 //实例化:
 var s3 = new SinaCloud.S3();
-//当前示例生效:
+//当前实例生效:
 s3.config = config;
 ```
   
