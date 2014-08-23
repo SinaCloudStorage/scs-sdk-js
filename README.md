@@ -12,9 +12,7 @@ scs-sdk-js
 #### 初始化`SinaCloud`
 
 ```javascript
-
 var SinaCloud = require('scs-sdk');
-
 ```
 
 #### 配置
@@ -31,7 +29,6 @@ var config = new SinaCloud.Config({
 
 //全局生效:
 SinaCloud.config = config;
-  	
 ```
   
 
@@ -55,7 +52,6 @@ SinaCloud.config = config;
 
 //全局生效:
 SinaCloud.config.loadFromPath('./config.json');
-
 ```
   
 ##### 方法3:
@@ -72,7 +68,6 @@ var config = new SinaCloud.Config({
 var s3 = new SinaCloud.S3();
 //当前示例生效:
 s3.config = config;
-
 ```
   
 #### 实例化
