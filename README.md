@@ -11,49 +11,69 @@ scs-sdk-js
   
 #### 初始化`SinaCloud`
 
-	var SinaCloud = require('scs-sdk');
+```javascript
+
+var SinaCloud = require('scs-sdk');
+
+```
 
 #### 配置
 
 ##### 方法1:
 
-	var config = new SinaCloud.Config({
-		accessKeyId: '你的accessKey', 
-		secretAccessKey: '你的secretKey',
-		sslEnabled: false
-	});
-  
-  	//全局生效:
-  	SinaCloud.config = config;
+```javascript
+
+var config = new SinaCloud.Config({
+	accessKeyId: '你的accessKey', 
+	secretAccessKey: '你的secretKey',
+	sslEnabled: false
+});
+
+//全局生效:
+SinaCloud.config = config;
+  	
+```
   
 
 ##### 方法2:
   
 创建一个json文件`config.json`:
 
-	{
-		"accessKeyId": "你的accessKey", 
-		"secretAccessKey": "你的secretKey",
-		"sslEnabled": true
-	}
+```javascript
+
+{
+	"accessKeyId": "你的accessKey", 
+	"secretAccessKey": "你的secretKey",
+	"sslEnabled": true
+}
+	
+```
 
 加载`config.json`:
 
-	//全局生效:
-	SinaCloud.config.loadFromPath('./config.json');
+```javascript
+
+//全局生效:
+SinaCloud.config.loadFromPath('./config.json');
+
+```
   
 ##### 方法3:
 
-	var config = new SinaCloud.Config({
-		accessKeyId: '你的accessKey', 
-		secretAccessKey: '你的secretKey',
-		sslEnabled: false
-	});
-  
-	//实例化:
-	var s3 = new SinaCloud.S3();
-	//当前示例生效:
-	s3.config = config;
+```javascript
+
+var config = new SinaCloud.Config({
+	accessKeyId: '你的accessKey', 
+	secretAccessKey: '你的secretKey',
+	sslEnabled: false
+});
+
+//实例化:
+var s3 = new SinaCloud.S3();
+//当前示例生效:
+s3.config = config;
+
+```
   
 #### 实例化
 
