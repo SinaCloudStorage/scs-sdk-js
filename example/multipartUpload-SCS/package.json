@@ -1,0 +1,45 @@
+{
+  "name": "multipartupload",
+  "version": "1.0.0",
+  "description": "multipartUpload",
+  "scripts": {
+    "build": "rimraf -rf ./dist && tsc && copyfiles ./src/view ./dist/src/view && copyfiles ./src/public ./dist/src/public",
+    "dev": "cross-env NODE_ENV=dev nodemon --exec ts-node --files ./src/app.ts",
+    "prod": "pm2 start ./pm2.config.js",
+    "debug": "nodemon --exec node --inspect --require ts-node/register master.ts",
+    "help-types": "daruk-helper help -t",
+    "pushcode": "pushcode"
+  },
+  "keywords": [
+    "multipartUpload"
+  ],
+  "author": {
+    "name": "makan",
+    "email": "makan@staff.sian.com.cn"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@types/request-promise": "^4.1.44",
+    "daruk": "^0.5.9",
+    "formidable": "^1.2.1",
+    "joi": "^14.3.1",
+    "koa-compress": "^3.0.0",
+    "koa-ejs": "^4.2.0",
+    "koa-favicon": "^2.0.1",
+    "koa-static": "^5.0.0",
+    "mime": "^2.4.4"
+  },
+  "devDependencies": {
+    "@types/formidable": "^1.0.31",
+    "@types/joi": "^14.3.3",
+    "@types/mime": "^2.0.1",
+    "cross-env": "^5.2.0",
+    "nodemon": "^1.19.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
+    "tslint": "^5.17.0",
+    "tslint-config-alloy": "^0.2.1",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.5.2"
+  }
+}
