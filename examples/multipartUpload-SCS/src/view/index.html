@@ -1,0 +1,93 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>分片上传文件</title>
+  <style>
+    .content{
+    width: 400px;
+    height: 200px;
+    margin: 0 auto;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+  }
+  .uploadBtn{
+    width: 120px;
+    height: 60;
+    line-height: 60px;
+    background: #409EFF;
+    color: #ffffff;
+  }
+  </style>
+</head>
+
+<body>
+  <div class='content'>
+    <input type="file" id="file" accept="*/*">
+    <button id='uploadBtn'>开始上传文件</button>
+  </div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+  $('#uploadBtn').on('click', () => {
+    let file = $("#file")[0].files[0];
+    initUpload(file, partUpload);
+  })
+  let initUpload = (file, callback) => {
+    $.ajax({
+      url: "/init",
+      type: "POST",
+      headers: {
+        'x-amz-type': file.type,
+        'x-amz-date': new Date().toUTCString(),
+        'x-amz-size': file.size
+      },
+      processData: false, //很重要，告诉jquery不要对form进行处理
+      contentType: false, //很重要，指定为false才能形成正确的Content-Type
+      success: function (data) {
+        let _data = data.data
+        callback(file, 1, _data)
+      },
+      error:function(e) {
+        console.log(e)
+      }
+    })
+  }
+  let partUpload = (file, num, data) => {
+    let formData = new FormData()
+    let blockSize = 1 * 1024 * 1024 //分片1M
+    let blockNum = Math.ceil(file.size / blockSize) // 分片总数
+    let nextSize = Math.min(num * blockSize, file.size)
+    let fileData = file.slice((num - 1) * blockSize, nextSize)
+    formData.append("file", fileData)
+    $.ajax({
+      url: "/part",
+      type: "POST",
+      headers: {
+        'x-amz-partnumber': num,
+        'x-amz-date': new Date().toUTCString(),
+        'x-amz-id': data.UploadId,
+        'x-amz-key': data.Key,
+        'x-amz-type': file.type,
+        'x-amz-total': blockNum
+      },
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function (responseText) {
+        if (file.size <= nextSize) {
+          console.log('上传成功')
+          return;
+        }
+        partUpload(file, ++num, data)
+      },
+      error:function(e) {
+        console.log(e)
+      }
+    })
+  }
+</script>
+
+</html>
