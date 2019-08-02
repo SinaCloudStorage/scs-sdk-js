@@ -189,7 +189,7 @@ s3.getObject(params).on('httpData', function(chunk) {
 
 var s3 = new SinaCloud.S3();
 var file = require('fs').createReadStream('/path/to/file.jpg');
-var params = {Bucket: 'myBucket', Key: 'myImageFile.jpg', Body: file};
+var params = {Bucket: 'myBucket', Key: 'myImageFile.jpg', Body: file, ContentType: 'image/jpeg'};
 s3.putObject(params).on('httpHeaders', function(statusCode, headers) { 
 	console.log(headers);
 }).on('httpUploadProgress', function(progress) {
